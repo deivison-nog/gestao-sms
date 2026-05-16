@@ -6,9 +6,7 @@ use App\Models\MenuPermission;
 use App\Models\Position;
 use App\Models\Professional;
 use App\Models\Role;
-use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -53,56 +51,9 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        // -- Users --
-        $admin = User::query()->updateOrCreate(
-            ['email' => 'admin@gestaosms.local'],
-            [
-                'name'     => 'Administrador do Sistema',
-                'password' => Hash::make('password'),
-                'role_id'  => $adminRole->id,
-            ]
-        );
-
-        $nurseUser = User::query()->updateOrCreate(
-            ['email' => 'enfermeiro@gestaosms.local'],
-            [
-                'name'     => 'Enfermeiro Exemplo',
-                'password' => Hash::make('password'),
-                'role_id'  => $tecnicoRole->id,
-            ]
-        );
+        $this->call(TestProfilesSeeder::class);
 
         // -- Professionals --
-        Professional::query()->updateOrCreate(
-            ['cpf' => '111.111.111-11'],
-            [
-                'name'           => 'Enfermeiro Exemplo',
-                'birth_date'     => '1985-06-15',
-                'class_registry' => 'COREN-PE 123456',
-                'position_id'    => $positions['Enfermeiro']->id,
-                'workload'       => '40h',
-                'contract_type'  => 'efetivo',
-                'unit'           => 'UBS Central',
-                'is_active'      => true,
-                'is_frequency_enabled' => true,
-                'user_id'        => $nurseUser->id,
-            ]
-        );
-
-        Professional::query()->updateOrCreate(
-            ['cpf' => '222.222.222-22'],
-            [
-                'name'           => 'Técnico de Enfermagem Exemplo',
-                'birth_date'     => '1990-03-20',
-                'class_registry' => 'COREN-PE 654321',
-                'position_id'    => $positions['Técnico de Enfermagem']->id,
-                'workload'       => '40h',
-                'contract_type'  => 'efetivo',
-                'unit'           => 'UBS Norte',
-                'is_active'      => true,
-                'is_frequency_enabled' => true,
-            ]
-        );
 
         Professional::query()->updateOrCreate(
             ['cpf' => '333.333.333-33'],
@@ -119,16 +70,5 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        if (! $admin->professional) {
-            Professional::query()->create([
-                'name'          => 'Administrador do Sistema',
-                'cpf'           => '000.000.000-00',
-                'position_id'   => $positions['Administrador']->id,
-                'unit'          => 'Secretaria Municipal',
-                'is_active'     => true,
-                'is_frequency_enabled' => false,
-                'user_id'       => $admin->id,
-            ]);
-        }
     }
 }

@@ -83,7 +83,15 @@ http://localhost/gestao-sms/public
 | Usuário | E-mail | Senha |
 |---|---|---|
 | Administrador | `admin@gestaosms.local` | `password` |
+| Gestor de unidade | `gestor@gestaosms.local` | `password` |
 | Enfermeiro de exemplo | `enfermeiro@gestaosms.local` | `password` |
+| Técnico de enfermagem | `tecnico@gestaosms.local` | `password` |
+
+Se precisar recriar apenas os perfis/credenciais de teste, execute:
+
+```bash
+php artisan db:seed --class=Database\\Seeders\\TestProfilesSeeder
+```
 
 ---
 

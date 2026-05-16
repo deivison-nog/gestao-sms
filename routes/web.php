@@ -3,6 +3,7 @@
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NursingController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProfessionalController;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\ScheduleController;
@@ -21,6 +22,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('menu:dashboard')->name('dashboard.index');
 
     Route::resource('roles', RolePermissionController::class)->only(['index', 'update'])->middleware('menu:admin_permissoes');
+
+    // Positions (funções/cargos) — admin manages, plus a public API endpoint for fetch
+    Route::get('/api/positions', [PositionController::class, 'apiList'])->name('positions.api-list');
+    Route::resource('positions', PositionController::class)->only(['index', 'store', 'update', 'destroy'])->middleware('menu:admin_cargos');
 
     Route::resource('professionals', ProfessionalController::class)->except(['show'])->middleware('menu:profissionais');
 

@@ -13,7 +13,12 @@ class Professional extends Model
 
     protected $fillable = [
         'name',
-        'position',
+        'birth_date',
+        'cpf',
+        'class_registry',
+        'position_id',
+        'workload',
+        'contract_type',
         'unit',
         'is_active',
         'is_frequency_enabled',
@@ -23,6 +28,7 @@ class Professional extends Model
     protected function casts(): array
     {
         return [
+            'birth_date' => 'date',
             'is_active' => 'boolean',
             'is_frequency_enabled' => 'boolean',
         ];
@@ -31,6 +37,11 @@ class Professional extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function position(): BelongsTo
+    {
+        return $this->belongsTo(Position::class);
     }
 
     public function schedules(): HasMany

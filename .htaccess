@@ -1,0 +1,11 @@
+# Redireciona todas as requisições para a pasta public/ do Laravel.
+# Necessário quando o projeto está hospedado em subdiretório no XAMPP
+# (ex: C:\xampp\htdocs\gestao-sms).
+#
+# Alternativa: configure um VirtualHost apontando diretamente para a pasta
+# public/ e remova este arquivo.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

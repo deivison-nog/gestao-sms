@@ -7,5 +7,6 @@ return [
     ['key' => 'cronograma', 'label' => 'Cronograma', 'route' => 'schedules.index'],
     ['key' => 'suporte', 'label' => 'Suporte', 'route' => 'support-tickets.index'],
     ['key' => 'enfermagem', 'label' => 'Enfermagem', 'route' => 'nursing.index'],
+    ['key' => 'admin_cargos', 'label' => 'Administração/Funções', 'route' => 'positions.index'],
     ['key' => 'admin_permissoes', 'label' => 'Administração/Permissões', 'route' => 'roles.index'],
 ];

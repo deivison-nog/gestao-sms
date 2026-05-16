@@ -11,7 +11,7 @@ class ProfessionalController extends Controller
     public function index()
     {
         return view('professionals.index', [
-            'professionals' => Professional::query()->with('user')->orderBy('name')->get(),
+            'professionals' => Professional::query()->with(['user', 'position'])->orderBy('name')->get(),
         ]);
     }
 
@@ -25,12 +25,17 @@ class ProfessionalController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'position' => ['required', 'string', 'max:255'],
-            'unit' => ['required', 'string', 'max:255'],
-            'is_active' => ['nullable', 'boolean'],
+            'name'               => ['required', 'string', 'max:255'],
+            'birth_date'         => ['nullable', 'date'],
+            'cpf'                => ['required', 'string', 'max:14', 'unique:professionals,cpf'],
+            'class_registry'     => ['nullable', 'string', 'max:50'],
+            'position_id'        => ['nullable', 'exists:positions,id'],
+            'workload'           => ['nullable', 'string', 'max:20'],
+            'contract_type'      => ['nullable', 'in:efetivo,temporario,estagio'],
+            'unit'               => ['required', 'string', 'max:255'],
+            'is_active'          => ['nullable', 'boolean'],
             'is_frequency_enabled' => ['nullable', 'boolean'],
-            'user_id' => ['nullable', 'exists:users,id'],
+            'user_id'            => ['nullable', 'exists:users,id'],
         ]);
 
         Professional::query()->create([
@@ -53,12 +58,17 @@ class ProfessionalController extends Controller
     public function update(Request $request, Professional $professional)
     {
         $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'position' => ['required', 'string', 'max:255'],
-            'unit' => ['required', 'string', 'max:255'],
-            'is_active' => ['nullable', 'boolean'],
+            'name'               => ['required', 'string', 'max:255'],
+            'birth_date'         => ['nullable', 'date'],
+            'cpf'                => ['required', 'string', 'max:14', "unique:professionals,cpf,{$professional->id}"],
+            'class_registry'     => ['nullable', 'string', 'max:50'],
+            'position_id'        => ['nullable', 'exists:positions,id'],
+            'workload'           => ['nullable', 'string', 'max:20'],
+            'contract_type'      => ['nullable', 'in:efetivo,temporario,estagio'],
+            'unit'               => ['required', 'string', 'max:255'],
+            'is_active'          => ['nullable', 'boolean'],
             'is_frequency_enabled' => ['nullable', 'boolean'],
-            'user_id' => ['nullable', 'exists:users,id'],
+            'user_id'            => ['nullable', 'exists:users,id'],
         ]);
 
         $professional->update([

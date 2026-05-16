@@ -18,12 +18,9 @@ class Schedule extends Model
         'created_by',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'scheduled_date' => 'date',
-        ];
-    }
+    protected $casts = [
+        'scheduled_date' => 'date',
+    ];
 
     public function professional(): BelongsTo
     {

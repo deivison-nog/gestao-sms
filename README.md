@@ -25,8 +25,10 @@ Sistema web para gestão de Secretaria Municipal de Saúde com:
 ## Instalação no XAMPP (recomendado)
 
 ### Pré-requisitos
-- [XAMPP](https://www.apachefriends.org/) com PHP ≥ 8.2, Apache e MySQL ativos
+- [XAMPP](https://www.apachefriends.org/) com PHP **≥ 8.0.2**, Apache e MySQL ativos
 - [Composer](https://getcomposer.org/) instalado no sistema
+
+> **Nota sobre versões:** o projeto foi configurado para rodar com PHP 8.0+. Se você tiver uma versão mais nova do PHP (8.1, 8.2 ou superior), também funcionará sem problema.
 
 ### Passo a passo
 
@@ -40,6 +42,13 @@ C:\xampp\htdocs\gestao-sms\
 cd C:\xampp\htdocs\gestao-sms
 composer install
 ```
+
+> **Composer 2.9+ (aviso de segurança):** se o Composer bloquear a instalação citando advisories do `laravel/framework`, execute o comando abaixo **antes** de `composer install`:
+> ```bash
+> composer config audit.block-insecure false
+> ```
+> Este projeto usa Laravel 9 (compatível com PHP 8.0). O Laravel 9 está em fim de vida (EOL), mas é seguro para uso em redes internas/desenvolvimento local.  
+> Para ambientes de produção expostos à internet, recomenda-se atualizar o PHP para 8.2+ e usar Laravel 11.
 
 **3. Configure o ambiente:**
 ```bash

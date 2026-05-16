@@ -19,12 +19,9 @@ class AttendanceRecord extends Model
         'observations',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'month' => 'date',
-        ];
-    }
+    protected $casts = [
+        'month' => 'date',
+    ];
 
     public function professional(): BelongsTo
     {

@@ -25,14 +25,11 @@ class Professional extends Model
         'user_id',
     ];
 
-    protected function casts(): array
-    {
-        return [
-            'birth_date' => 'date',
-            'is_active' => 'boolean',
-            'is_frequency_enabled' => 'boolean',
-        ];
-    }
+    protected $casts = [
+        'birth_date' => 'date',
+        'is_active' => 'boolean',
+        'is_frequency_enabled' => 'boolean',
+    ];
 
     public function user(): BelongsTo
     {

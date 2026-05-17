@@ -87,11 +87,22 @@ http://localhost/gestao-sms/public
 | Enfermeiro de exemplo | `enfermeiro@gestaosms.local` | `password` |
 | Técnico de enfermagem | `tecnico@gestaosms.local` | `password` |
 
-Se precisar recriar apenas os perfis/credenciais de teste, execute:
+Se precisar recriar apenas os perfis/credenciais de teste:
 
-```bash
-php artisan db:seed --class=Database\\Seeders\\TestProfilesSeeder
-```
+1. Atualize o autoloader (necessário após `git pull` ou adição de novas classes):
+   ```bash
+   composer dump-autoload
+   ```
+
+2. Execute o seeder:
+   - **PowerShell (Windows):**
+     ```powershell
+     php artisan db:seed --class="Database\Seeders\TestProfilesSeeder"
+     ```
+   - **Bash / CMD:**
+     ```bash
+     php artisan db:seed --class=TestProfilesSeeder
+     ```
 
 ---
 

@@ -133,11 +133,13 @@ try {
     die('<pre style="color:red;padding:2rem">Erro ao conectar ao banco de dados:<br>' . h($e->getMessage()) . '</pre>');
 }
 
-// Verifica se as tabelas existem
+// Verifica se as tabelas e colunas necessárias existem
 $tablesReady = false;
 try {
     $pdo->query('SELECT 1 FROM users LIMIT 1');
     $pdo->query('SELECT 1 FROM roles LIMIT 1');
+    // role_id é adicionado por uma migration separada; verifica se já existe
+    $pdo->query('SELECT role_id FROM users LIMIT 0');
     $tablesReady = true;
 } catch (PDOException) {
     $tablesReady = false;

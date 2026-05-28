@@ -2,7 +2,7 @@
 /**
  * senha.php — Utilitário de gerenciamento de usuários (uso local / XAMPP)
  *
- * Acesse via: http://localhost/gestao-sms/senha.php
+ * Acesse via: http://localhost/gestao-sms/public/senha.php
  * Senha de acesso padrão: admin123  (altere a constante SCRIPT_PASSWORD abaixo)
  */
 

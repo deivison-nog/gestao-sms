@@ -28,13 +28,15 @@ class DatabaseSeeder extends Seeder
         $tecnicoRole = Role::query()->updateOrCreate(['slug' => 'tecnico'],      ['name' => 'Técnico']);
 
         $adminRole->syncMenuPermissions($permissions->pluck('key')->all());
-        $gestorRole->syncMenuPermissions(['dashboard', 'frequencia', 'profissionais', 'cronograma', 'suporte', 'enfermagem']);
+        $gestorRole->syncMenuPermissions(['dashboard', 'frequencia', 'profissionais', 'cronograma', 'suporte', 'enfermagem', 'admin_estabelecimentos']);
         $tecnicoRole->syncMenuPermissions(['dashboard', 'cronograma', 'suporte']);
 
         // -- Establishments --
         $establishmentNames = [
+            ['name' => 'Secretaria Municipal', 'cnes' => '0000000', 'address' => 'Sede'],
             ['name' => 'UBS Central', 'cnes' => '0000001', 'address' => 'Centro'],
             ['name' => 'UBS Sul', 'cnes' => '0000002', 'address' => 'Bairro Sul'],
+            ['name' => 'UBS Norte', 'cnes' => '0000003', 'address' => 'Bairro Norte'],
             ['name' => 'ESF Norte', 'cnes' => '0000003', 'address' => 'Bairro Norte'],
         ];
 

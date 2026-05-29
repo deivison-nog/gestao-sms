@@ -72,9 +72,6 @@
                     {{ $establishment->name }}
                 </option>
             @endforeach
-            @if($selectedUnit !== '' && !collect($establishments)->contains('name', $selectedUnit))
-                <option value="{{ $selectedUnit }}" selected>{{ $selectedUnit }}</option>
-            @endif
         </select>
     </div>
 

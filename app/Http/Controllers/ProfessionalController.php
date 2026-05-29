@@ -6,6 +6,7 @@ use App\Models\Establishment;
 use App\Models\Professional;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProfessionalController extends Controller
 {
@@ -34,7 +35,7 @@ class ProfessionalController extends Controller
             'position_id'        => ['nullable', 'exists:positions,id'],
             'workload'           => ['nullable', 'string', 'max:20'],
             'contract_type'      => ['nullable', 'in:efetivo,temporario,estagio'],
-            'unit'               => ['required', 'string', 'max:255'],
+            'unit'               => ['required', 'string', 'max:255', Rule::exists('establishments', 'name')],
             'is_active'          => ['nullable', 'boolean'],
             'is_frequency_enabled' => ['nullable', 'boolean'],
             'user_id'            => ['nullable', 'exists:users,id'],
@@ -67,7 +68,7 @@ class ProfessionalController extends Controller
             'position_id'        => ['nullable', 'exists:positions,id'],
             'workload'           => ['nullable', 'string', 'max:20'],
             'contract_type'      => ['nullable', 'in:efetivo,temporario,estagio'],
-            'unit'               => ['required', 'string', 'max:255'],
+            'unit'               => ['required', 'string', 'max:255', Rule::exists('establishments', 'name')],
             'is_active'          => ['nullable', 'boolean'],
             'is_frequency_enabled' => ['nullable', 'boolean'],
             'user_id'            => ['nullable', 'exists:users,id'],

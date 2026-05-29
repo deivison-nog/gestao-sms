@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
         $adminRole->syncMenuPermissions($permissions->pluck('key')->all());
         $gestorRole->syncMenuPermissions(['dashboard', 'frequencia', 'profissionais', 'cronograma', 'suporte', 'enfermagem', 'admin_estabelecimentos']);
-        $tecnicoRole->syncMenuPermissions(['dashboard', 'cronograma', 'suporte']);
+        $tecnicoRole->syncMenuPermissions(['dashboard', 'cronograma', 'suporte', 'admin_estabelecimentos']);
 
         // -- Establishments --
         $establishmentNames = [

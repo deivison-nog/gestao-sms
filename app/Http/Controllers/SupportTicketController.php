@@ -22,11 +22,10 @@ class SupportTicketController extends Controller
             'description' => ['required', 'string'],
         ]);
 
-        SupportTicket::query()->create([
-            ...$validated,
+        SupportTicket::query()->create(array_merge($validated, [
             'status' => 'aberto',
             'opened_by' => $request->user()->id,
-        ]);
+        ]));
 
         return back()->with('status', 'Chamado aberto com sucesso.');
     }

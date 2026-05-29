@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EstablishmentController;
 use App\Http\Controllers\NursingController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProfessionalController;
@@ -26,6 +27,7 @@ Route::middleware('auth')->group(function () {
     // Positions (funções/cargos) — admin manages, plus a public API endpoint for fetch
     Route::get('/api/positions', [PositionController::class, 'apiList'])->name('positions.api-list');
     Route::resource('positions', PositionController::class)->only(['index', 'store', 'update', 'destroy'])->middleware('menu:admin_cargos');
+    Route::resource('establishments', EstablishmentController::class)->only(['index', 'store', 'update', 'destroy'])->middleware('menu:admin_estabelecimentos');
 
     Route::resource('professionals', ProfessionalController::class)->except(['show'])->middleware('menu:profissionais');
 

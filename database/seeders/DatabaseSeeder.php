@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\MenuPermission;
+use App\Models\Establishment;
 use App\Models\Position;
 use App\Models\Professional;
 use App\Models\Role;
@@ -29,6 +30,20 @@ class DatabaseSeeder extends Seeder
         $adminRole->syncMenuPermissions($permissions->pluck('key')->all());
         $gestorRole->syncMenuPermissions(['dashboard', 'frequencia', 'profissionais', 'cronograma', 'suporte', 'enfermagem']);
         $tecnicoRole->syncMenuPermissions(['dashboard', 'cronograma', 'suporte']);
+
+        // -- Establishments --
+        $establishmentNames = [
+            ['name' => 'UBS Central', 'cnes' => '0000001', 'address' => 'Centro'],
+            ['name' => 'UBS Sul', 'cnes' => '0000002', 'address' => 'Bairro Sul'],
+            ['name' => 'ESF Norte', 'cnes' => '0000003', 'address' => 'Bairro Norte'],
+        ];
+
+        foreach ($establishmentNames as $establishment) {
+            Establishment::query()->updateOrCreate(
+                ['name' => $establishment['name']],
+                $establishment
+            );
+        }
 
         // -- Positions (funções) --
         $positionNames = [

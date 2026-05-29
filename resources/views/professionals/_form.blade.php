@@ -61,11 +61,21 @@
         </select>
     </div>
 
-    {{-- Lotação (unidade, UBS, ESF) --}}
+    {{-- Lotação (estabelecimento) --}}
     <div class="col-md-4">
-        <label class="form-label">Lotação (unidade/UBS/ESF) <span class="text-danger">*</span></label>
-        <input class="form-control" name="unit" placeholder="ex: UBS Central, ESF Norte"
-               value="{{ old('unit', $professional->unit ?? '') }}" required>
+        <label class="form-label">Lotação (estabelecimento) <span class="text-danger">*</span></label>
+        @php($selectedUnit = old('unit', $professional->unit ?? ''))
+        <select class="form-select" name="unit" required>
+            <option value="">Selecione o estabelecimento</option>
+            @foreach($establishments as $establishment)
+                <option value="{{ $establishment->name }}" {{ $selectedUnit === $establishment->name ? 'selected' : '' }}>
+                    {{ $establishment->name }}
+                </option>
+            @endforeach
+            @if($selectedUnit !== '' && !collect($establishments)->contains('name', $selectedUnit))
+                <option value="{{ $selectedUnit }}" selected>{{ $selectedUnit }}</option>
+            @endif
+        </select>
     </div>
 
     {{-- Exibir na frequência --}}

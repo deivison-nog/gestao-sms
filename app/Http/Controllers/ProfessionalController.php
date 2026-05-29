@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Establishment;
 use App\Models\Professional;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,6 +20,7 @@ class ProfessionalController extends Controller
     {
         return view('professionals.create', [
             'users' => User::query()->whereDoesntHave('professional')->orderBy('name')->get(),
+            'establishments' => Establishment::query()->orderBy('name')->get(),
         ]);
     }
 
@@ -38,11 +40,10 @@ class ProfessionalController extends Controller
             'user_id'            => ['nullable', 'exists:users,id'],
         ]);
 
-        Professional::query()->create([
-            ...$validated,
+        Professional::query()->create(array_merge($validated, [
             'is_active' => $request->boolean('is_active', true),
             'is_frequency_enabled' => $request->boolean('is_frequency_enabled', true),
-        ]);
+        ]));
 
         return redirect()->route('professionals.index')->with('status', 'Profissional cadastrado com sucesso.');
     }
@@ -52,6 +53,7 @@ class ProfessionalController extends Controller
         return view('professionals.edit', [
             'professional' => $professional,
             'users' => User::query()->where(fn ($query) => $query->whereDoesntHave('professional')->orWhere('id', $professional->user_id))->orderBy('name')->get(),
+            'establishments' => Establishment::query()->orderBy('name')->get(),
         ]);
     }
 
@@ -71,11 +73,10 @@ class ProfessionalController extends Controller
             'user_id'            => ['nullable', 'exists:users,id'],
         ]);
 
-        $professional->update([
-            ...$validated,
+        $professional->update(array_merge($validated, [
             'is_active' => $request->boolean('is_active'),
             'is_frequency_enabled' => $request->boolean('is_frequency_enabled'),
-        ]);
+        ]));
 
         return redirect()->route('professionals.index')->with('status', 'Profissional atualizado com sucesso.');
     }
